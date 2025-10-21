@@ -1,0 +1,21 @@
+{
+  "name": "js-from-rust",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "cargo build --release && napi build --release --platform"
+  },
+  "napi": {
+    "binaryName": "js-from-rust",
+    "targets": [
+      "darwin-x64",
+      "darwin-arm64",
+      "linux-x64-gnu",
+      "linux-arm64-gnu",
+      "win32-x64-msvc"
+    ]
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^3.0.0"
+  }
+}
