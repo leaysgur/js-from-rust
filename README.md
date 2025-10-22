@@ -1,9 +1,8 @@
-# js-from-rust
+# js-from-rust-example
 
-Calling JS callback from Rust, using napi-rs `ThreadsafeFunction`.
+Calling JS callback from Rust, using napi-rs!
 
 - [Node-API | Node.js v25.0.0 Documentation](https://nodejs.org/api/n-api.html#asynchronous-thread-safe-function-calls)
-- [ThreadsafeFunction – NAPI-RS](https://napi.rs/docs/concepts/threadsafe-function)
 - [Functions and Callbacks in NAPI-RS – NAPI-RS](https://napi.rs/blog/function-and-callbacks.en#part-3-threadsafefunction---cross-thread-callbacks)
 
 ### How to try
