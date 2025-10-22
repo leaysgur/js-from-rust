@@ -1,10 +1,4 @@
-use std::sync::mpsc;
-
-use napi::{
-    Status,
-    bindgen_prelude::FnArgs,
-    threadsafe_function::{ThreadsafeFunction, ThreadsafeFunctionCallMode},
-};
+use napi::bindgen_prelude::{Function, Result};
 use napi_derive::napi;
 
 /// A simple function that demonstrates calling Rust from JS.
@@ -16,36 +10,11 @@ pub fn hello(name: String) -> String {
 
 // ---
 
-pub type JsCallback = ThreadsafeFunction<
-    // The input type passed from Rust to JS
-    FnArgs<(String,)>,
-    // The return type from JS to Rust
-    String,
-    // The arguments for the JS function (usually same as the first args)
-    FnArgs<(String,)>,
-    // The error type (default: Status)
-    Status,
-    // Whether errors are handled by the callback (true) or are fatal (false)
-    false,
->;
-
 /// A simple function that calls a JS callback from Rust.
-/// This demonstrates how to use `ThreadsafeFunction` to call back into JS.
+/// This demonstrates how to call a JS function directly.
 #[napi]
-pub async fn hello_with_callback(js_hello_cb: JsCallback) -> napi::Result<()> {
-    let (tx, rx) = mpsc::channel();
-
-    js_hello_cb.call_with_return_value(
-        FnArgs::from(("🦀 < `Hello, {{template}}!`".to_string(),)),
-        ThreadsafeFunctionCallMode::Blocking,
-        move |result, _| {
-            tx.send(result).ok();
-            Ok(())
-        },
-    );
-
-    let result = rx.recv().unwrap()?;
+pub fn hello_with_callback(callback: Function<String, String>) -> Result<String> {
+    let result = callback.call("🦀 < `Hello, {{template}}!`".to_string())?;
     println!("{result}");
-
-    Ok(())
+    Ok(result)
 }
