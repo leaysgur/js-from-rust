@@ -1,9 +1,10 @@
 {
   "name": "js-from-rust",
   "version": "0.1.0",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "build": "cargo build --release && napi build --release --platform"
+    "build": "cargo build --release && napi build --release --platform --esm"
   },
   "napi": {
     "binaryName": "js-from-rust",

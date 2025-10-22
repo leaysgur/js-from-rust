@@ -1,4 +1,4 @@
-const { hello, helloWithCallback } = require("./index.js");
+import { hello, helloWithCallback } from "./index.js";
 
 async function main() {
   console.log("=== Calling Rust from JS ===");
